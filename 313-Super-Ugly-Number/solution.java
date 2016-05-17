@@ -3,6 +3,8 @@ public class Solution {
         int res = 0;
         Set<Integer> exist = new HashSet<Integer>();
         Queue<Integer> heap = new PriorityQueue<Integer>();
+        heap.offer(1);
+        exist.add(1);
         for (int prime : primes){
             exist.add(prime);
             heap.offer(prime);
