@@ -18,8 +18,11 @@ public class Solution {
         }
         for (int j=0; j<n; j++){
             String cur = s.substring(i+j*len, i+(j+1)*len);
-            if (!map.containsKey(cur) || map.get(cur)==0) return false;
-            else map.put(cur,map.get(cur)-1);
+            if (!map.containsKey(cur)) return false;
+            else {
+                if (map.get(cur) == 1) map.remove(cur);
+                else map.put(cur,map.get(cur)-1);
+            }
         }
         return true;
     }
