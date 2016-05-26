@@ -4,8 +4,8 @@ public class Solution {
         List<Integer> res = new ArrayList<Integer>();
         if (n==0) return res;
         int len = words[0].length();
-        for (int i=0; i<s.length(); i++){
-            if ((i+n*len)>s.length()) break;
+        for (int i=0; i<=s.length()-n*len; i++){
+            //if ((i+n*len)>s.length()) break;
             if (helper(s,words,i,len,n)) res.add(i);
         }
         return res;
