@@ -17,12 +17,13 @@ public class Solution {
             else map.put(ss,1);
         }
         for (int j=0; j<n; j++){
+            if (map.isEmpty()) return true;
             String cur = s.substring(i+j*len, i+(j+1)*len);
             if (!map.containsKey(cur)) return false;
             else {
                 if (map.get(cur) == 1) map.remove(cur);
                 else map.put(cur,map.get(cur)-1);
-                if (map.isEmpty()) return true;
+                
             }
             
         }
