@@ -22,7 +22,9 @@ public class Solution {
             else {
                 if (map.get(cur) == 1) map.remove(cur);
                 else map.put(cur,map.get(cur)-1);
+                if (map.isEmpty()) return true;
             }
+            
         }
         return true;
     }
