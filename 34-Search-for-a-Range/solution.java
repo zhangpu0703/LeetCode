@@ -19,7 +19,7 @@ public class Solution {
         else if (start<nums.length-1 && nums[start+1]==target) res[0]=start+1;
         start = 0;
         end = nums.length-1;
-        while (start<end){
+        while (start<end-1){
             int mid = start+(end-start)/2;
             if (target>nums[mid]) start = mid;
             else if (target<nums[mid]) end = mid;
