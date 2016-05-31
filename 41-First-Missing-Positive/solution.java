@@ -3,9 +3,9 @@ public class Solution {
         for (int i=0; i<nums.length; i++){
             while (nums[i]>0 && nums[i]<=nums.length && nums[i]!=nums[nums[i]-1]){
                 //if () break;
-                int temp = nums[i];
-                nums[i]= nums[nums[i]-1];
-                nums[nums[i]-1] = temp;
+                int temp = nums[nums[i]-1];
+                nums[nums[i]-1]=nums[i];
+                nums[i] = temp;
             }
         }
         for (int i=0; i<nums.length; i++){
