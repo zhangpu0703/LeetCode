@@ -1,4 +1,4 @@
 # Write your MySQL query statement below
-Select distinct A.Num 
-from Logs as A join Logs as B join Logs as C
-on (A.Id=B.Id+1) & (B.Id=C.Id+1) & (A.Num=B.Num) & (B.Num = C.Num)
+select distinct a.Num as ConsecutiveNums from 
+Logs as a, Logs as b, Logs as c
+where a.Id+1=b.Id and b.Id+1=c.Id and a.Num=b.Num and b.Num=c.Num
