@@ -2,7 +2,7 @@ public class Solution {
     public int numSquares(int n) {
         int[] res = new int[n];
         for (int i=1; i*i<n; i++){
-            res[i-1]=1;
+            res[i*i-1]=1;
         }
         for (int i=1; i<n; i++){
             if (res[i]==1) continue;
