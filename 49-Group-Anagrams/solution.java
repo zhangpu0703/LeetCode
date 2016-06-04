@@ -5,7 +5,7 @@ public class Solution {
         for (String str : strs){
             char[] c = str.toCharArray();
             Arrays.sort(c);
-            String key = String.valueOf(c);
+            String key = new String(c);
             if (map.containsKey(key)){
                 List<String> cur = map.get(key);
                 cur.add(str);
