@@ -10,9 +10,10 @@ public class Solution {
         int hInd = n;
         int sum = 0;
         while (hInd>=0){
-            if (sum==hInd) return hInd;
             sum+=res[hInd];
+            if (sum>=hInd) return hInd;
+            hInd--;
         }
-        return hInd;
+        return 0;
     }
 }
