@@ -10,8 +10,7 @@
 public class Solution {
     public Comparator<Interval> IntervalCompare = new Comparator<Interval>(){
         public int compare(Interval a, Interval b){
-            if (a.start!=b.start) return a.start-b.start;
-            else return a.end-b.end;
+            return a.start-b.start;
         }
     };
     public List<Interval> merge(List<Interval> intervals) {
