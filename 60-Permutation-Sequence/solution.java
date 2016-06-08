@@ -10,6 +10,7 @@ public class Solution {
         k--;
         for(int i=1; i<=n; i++){
             fact= fact/(n-i+1);
+            
             int cur = k/fact;
             sb.append(nums.get(cur));
             nums.remove(cur);
