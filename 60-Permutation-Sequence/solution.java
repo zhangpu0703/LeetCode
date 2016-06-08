@@ -12,10 +12,10 @@ public class Solution {
             fact = fact/(n-i+1);
             
             int cur = k/fact;
-            k = k%fact;
+            
             sb.append(nums.get(cur));
             nums.remove(cur);
-            
+            k = k%fact;
         }
         return sb.toString();
     }
