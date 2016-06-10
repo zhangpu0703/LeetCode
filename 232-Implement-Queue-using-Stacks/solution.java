@@ -1,5 +1,9 @@
 class MyQueue {
-    Stack<Integer> queue = new Stack<Integer>();
+    Stack<Integer> queue;
+    
+    public MyQueue(){
+        queue = new Stack<Integer>();
+    }
     // Push element x to the back of queue.
     public void push(int x) {
         Stack<Integer> reverse = new Stack<Integer>();
