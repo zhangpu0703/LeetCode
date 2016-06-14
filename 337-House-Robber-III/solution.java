@@ -10,19 +10,16 @@
 public class Solution {
     public int rob(TreeNode root) {
         if (root == null) return 0;
-        if (root.left != null && root.right!= null) {
-            int left = rob(root.left.left)+rob(root.left.right);
-            int right = rob(root.right.left)+rob(root.right.right);
-            return Math.max((rob(root.left)+rob(root.right)),(left+right+root.val));
+        else if (root.left != null && root.right != null){
+            return Math.max(root.val+rob(root.left.left)+rob(root.left.right)+rob(root.right.left)+rob(root.right.right),
+            rob(root.left)+rob(root.right));
         }
         else if (root.left != null){
-            int left = rob(root.left.left)+rob(root.left.right);
-            return Math.max(rob(root.left),(left+root.val));
+            return Math.max(root.val+rob(root.left.left)+rob(root.left.right),rob(root.left));
         }
         else if (root.right != null){
-            int right = rob(root.right.left)+rob(root.right.right);
-            return Math.max(rob(root.right),(right+root.val));
+            return Math.max(root.val+rob(root.right.left)+rob(root.right.right),rob(root.right));
         }
         else return root.val;
-    }
+    } 
 }
