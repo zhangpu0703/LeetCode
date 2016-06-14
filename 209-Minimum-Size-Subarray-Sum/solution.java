@@ -1,5 +1,5 @@
 public class Solution {
-    public int minSubArrayLen(int s, int[] nums) {
+     public int minSubArrayLen(int s, int[] nums) {
         int res = Integer.MAX_VALUE;
         int start = 0;
         int end = 0;
@@ -11,7 +11,6 @@ public class Solution {
                 sum-=nums[start];
                 start++;
             }
-            
             end++;
         }
         if (res == Integer.MAX_VALUE) return 0;
