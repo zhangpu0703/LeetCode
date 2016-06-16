@@ -23,6 +23,7 @@ public class Solution {
             }
             head=head.next;
         }
+        curG.next = null;
         curL.next = gte.next;
         return lt.next;
     }
