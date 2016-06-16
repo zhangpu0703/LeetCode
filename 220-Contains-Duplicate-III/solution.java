@@ -3,8 +3,8 @@ public class Solution {
         for (int i=0; i<nums.length; i++){
             int ind = 1;
             while (ind <= k && i+ind<nums.length){
-                int abs = nums[i+ind]-nums[1];
-                if (abs<=t || abs>=-t) return true;
+                int abs = nums[i+ind]-nums[i];
+                if (abs<=t && abs>=-t) return true;
             }
         }
         return false;
