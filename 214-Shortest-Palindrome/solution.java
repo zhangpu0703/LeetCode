@@ -1,19 +1,12 @@
 public class Solution {
     public String shortestPalindrome(String s) {
-        StringBuilder sb = new StringBuilder();
-        int n = s.length();
-        for (int i=1; i<=n; i++){
-            sb.append(s.charAt(n-i));
+        int j = 0;
+        for (int i = s.length()-1; i>=0; i--){
+            if (s.charAt(i)==s.charAt(j)) j++;
         }
-        String r = sb.toString();
-        int end = n;
-        while(end>0 && !s.substring(0,end).equals(r.substring(n-end))){
-            end--;
-        }
-        sb = new StringBuilder();
-        for (int i=end; i<n; i++){
-            sb.append(s.charAt(i));
-        }
-        return sb.reverse().toString()+s;
+        if (j==s.length()) return s;
+        String end = s.substring(j);
+        String first = new StringBuilder(end).reverse().toString();
+        return first + shortestPalindrome(s.substring(0,j) )+ end;
     }
 }
