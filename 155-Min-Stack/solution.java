@@ -1,24 +1,28 @@
-class MinStack {
-    private Stack<Integer> minstack = new Stack<Integer>();
-    private Stack<Integer> Min = new Stack<Integer>();
-    private int curmin= Integer.MAX_VALUE;
+public class MinStack {
+    Stack<Integer> stack;
+    Stack<Integer> curmin;
+    /** initialize your data structure here. */
+    public MinStack() {
+        stack= new Stack<Integer>();
+        curmin = new Stack<Integer>();
+    }
+    
     public void push(int x) {
-        minstack.push(x);
-        if (Min.isEmpty() || x <= Min.peek()) Min.push(x);
+        if (curmin.isEmpty() || x<= curmin.peek()) curmin.push(x);
+        stack.push(x);
     }
-
+    
     public void pop() {
-        if (Min.peek().equals(minstack.peek())) Min.pop();
-        minstack.pop();
+        if (curmin.peek().equals(stack.peek())) curmin.pop();
+        stack.pop();
     }
-
+    
     public int top() {
-        return minstack.peek();
+        return stack.peek();
     }
-
+    
     public int getMin() {
-        return Min.peek();
-        
+        return curmin.peek();
     }
 }
 
