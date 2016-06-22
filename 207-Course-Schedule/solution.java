@@ -4,7 +4,7 @@ public class Solution {
         if (m==0) return true;
         int[] counts = new int[numCourses];
         for (int i=0; i<m; i++){
-            counts[prerequisites[i][1]]++;
+            counts[prerequisites[i][0]]++;
         }
         int can = 0;
         Queue<Integer> queue = new LinkedList<Integer>();
@@ -17,10 +17,10 @@ public class Solution {
         while (!queue.isEmpty()){
             int cur = queue.poll();
             for (int i=0; i<m; i++){
-                if (prerequisites[i][0]==cur){
-                    counts[prerequisites[i][1]]--;
-                    if (counts[prerequisites[i][1]] == 0) {
-                        queue.offer(prerequisites[i][1]);
+                if (prerequisites[i][1]==cur){
+                    counts[prerequisites[i][0]]--;
+                    if (counts[prerequisites[i][0]] == 0) {
+                        queue.offer(prerequisites[i][0]);
                         can++;
                     }
                 }
