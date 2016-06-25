@@ -7,9 +7,7 @@ public class Solution {
             n>>=1;
             dig++;
         }
-        while(dig>0){
-            m<<=1;
-        }
-        return m;
+
+        return m<<dig;
     }
 }
