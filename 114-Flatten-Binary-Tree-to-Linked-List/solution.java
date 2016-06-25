@@ -13,11 +13,11 @@ public class Solution {
         TreeNode r = root.right;
         TreeNode l = root.left;
         flatten(l);
-        flatten(r);
         root.right = l;
         root.left = null;
         TreeNode cur =root;
         while (cur.right != null) cur=cur.right;
         cur.right = r;
+        flatten(r);
     }
 }
