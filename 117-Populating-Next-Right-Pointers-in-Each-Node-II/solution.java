@@ -15,19 +15,13 @@ public class Solution {
         while (cur!=null){
             while(cur!=null){
                 if (cur.left !=null){
-                    if (prev == null){
-                        head = cur.left;
-                    }
-                    else {
-                        prev.next = cur.left;
-                    }
+                    if (prev == null) head = cur.left;
+                    else prev.next = cur.left;
                     prev = cur.left;
                 }
                 if (cur.right != null){
                     if (prev == null) head=cur.right;
-                    else{
-                        prev.next = cur.right;
-                    }
+                    else prev.next = cur.right;
                     prev = cur.right;
                 }
                 cur = cur.next;
