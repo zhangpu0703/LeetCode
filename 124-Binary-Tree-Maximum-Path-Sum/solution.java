@@ -8,27 +8,17 @@
  * }
  */
 public class Solution {
+    private int res = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
-        int res = root.val;
-        if (root.left == null && root.right == null) return res;
-        
-        else if (root.right == null) {
-            res += Math.max(0,maxpath(root.left));
-            return Math.max(res,maxPathSum(root.left));
-        }
-        else if (root.left == null){
-            res += Math.max(0,maxpath(root.right));
-            return Math.max(res,maxPathSum(root.right));
-        } 
-        else{
-            res += Math.max(0,maxpath(root.left));
-            res += Math.max(0,maxpath(root.right));
-            return Math.max(res,Math.max(maxPathSum(root.left), maxPathSum(root.right)));
-        }
+        if (root == null) return 0;
+        maxpath(root);
+        return res;
     }
     public int maxpath(TreeNode root){
         if (root == null) return 0;
-        if (root.left == null && root.right == null) return root.val;
-        else return root.val+Math.max(Math.max(0,maxpath(root.left)),maxpath(root.right));
+        int left = Math.max(maxpath(root.left),0);
+        int right = Math.max(maxpath(root.right),0);
+        res = Math.max(res,root.val+left+right);
+        return root.val+Math.max(left,right);
     }
 }
