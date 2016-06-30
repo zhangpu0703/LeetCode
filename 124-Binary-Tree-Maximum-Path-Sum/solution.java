@@ -29,6 +29,6 @@ public class Solution {
     public int maxpath(TreeNode root){
         if (root == null) return 0;
         if (root.left == null && root.right == null) return root.val;
-        else return root.val+Math.max(Math.max(0,maxpath(root.left)),Math.max(0,maxpath(root.right)));
+        else return root.val+Math.max(Math.max(0,maxpath(root.left)),maxpath(root.right));
     }
 }
