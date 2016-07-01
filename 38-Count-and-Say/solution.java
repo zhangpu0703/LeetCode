@@ -2,17 +2,17 @@ public class Solution {
     public String countAndSay(int n) {
         if (n==1) return "1";
         String prev = countAndSay(n-1);
+        int ind = 0;
         StringBuilder sb = new StringBuilder();
-        int i = 0;
-        while (i<prev.length()){
-            int curLen = 1;
-            while (i<prev.length()-1 && prev.charAt(i)==prev.charAt(i+1)){
-                i++;
-                curLen++;
+        while(ind<prev.length()){
+            char cur = prev.charAt(ind);
+            int count=0;
+            while(ind<prev.length() && prev.charAt(ind)==cur){
+                ind++;
+                count++;
             }
-            sb.append(curLen);
-            sb.append(prev.charAt(i));
-            i++;
+            sb.append(count).append(cur);
+            //ind++;
         }
         return sb.toString();
     }
