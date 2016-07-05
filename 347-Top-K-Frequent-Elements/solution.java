@@ -7,7 +7,7 @@ class pair{
     }
 }
 public class Solution {
-    private Comparator<pair> pairComp = new Comparator<pair>(){
+    Comparator<pair> pairComp = new Comparator<pair>(){
         @Override
         public int compare(pair p1, pair p2){
             return p2.freq-p1.freq;
