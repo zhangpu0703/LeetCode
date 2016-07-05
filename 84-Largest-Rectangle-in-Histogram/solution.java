@@ -1,5 +1,5 @@
 public class Solution {
-public int largestRectangleArea(int[] heights) {
+    public int largestRectangleArea(int[] heights) {
         int res = 0;
         for (int i=0; i<heights.length; i++){
             int left = i-1;
@@ -9,11 +9,11 @@ public int largestRectangleArea(int[] heights) {
                 left--;
                 width++;
             }
-            while(right<heights.length && heights[right]>=heights[i]){
+            while (right<heights.length && heights[right]>=heights[i]){
                 right++;
                 width++;
             }
-            res = Math.max(res,width*heights[i]);
+            res=Math.max(res,width*heights[i]);
         }
         return res;
     }
