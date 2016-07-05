@@ -1,41 +1,33 @@
 class pair{
-    int key;
-    int count;
-    pair(int key, int count){
-        this.key=key;
-        this.count=count;
+    int value;
+    int freq;
+    public pair (int value, int freq){
+        this.value=value;
+        this.freq = freq;
     }
 }
 public class Solution {
     private Comparator<pair> pairComp = new Comparator<pair>(){
-        public int compare(pair A,pair B){
-            return A.count-B.count;
+        @Override
+        public int compare(pair p1, pair p2){
+            return p2.freq-p1.freq;
         }
     };
+    
     public List<Integer> topKFrequent(int[] nums, int k) {
-        List<Integer> res = new ArrayList<Integer>();
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-        for (int num : nums){
+        for (int num:nums){
             if (map.containsKey(num)) map.put(num,map.get(num)+1);
             else map.put(num,1);
         }
-        PriorityQueue<pair> heap = new PriorityQueue<pair>(k, pairComp);
+        PriorityQueue<pair> queue = new PriorityQueue<pair>(pairComp);
         for (int num : map.keySet()){
-            pair curMin= heap.peek();
-            if (heap.size()<k) heap.add(new pair(num,map.get(num)));
-            else if (curMin.count<map.get(num)){
-                heap.poll();
-                heap.add(new pair(num,map.get(num)));
-            }
+            pair cur = new pair(num,map.get(num));
+            queue.offer(cur);
         }
-        while(!heap.isEmpty()){
-            pair cur= heap.poll();
-            res.add(cur.key);
-        }
-        for (int i=0; i<k/2; i++){
-            int temp=res.get(i);
-            res.set(i,res.get(k-1-i));
-            res.set(k-1-i,temp);
+        List<Integer> res = new ArrayList<Integer>();
+        for (int i=0; i<k; i++){
+            res.add(queue.poll().value);
         }
         return res;
     }
