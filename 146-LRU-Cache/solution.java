@@ -1,31 +1,31 @@
 public class LRUCache {
-    private HashMap<Integer,Integer> lruCache;
-    private List<Integer> keys;
-    private int cap;
+    private HashMap<Integer,Integer> map;
+    private List<Integer> list;
+    private int kk;
     public LRUCache(int capacity) {
-        lruCache = new HashMap<Integer, Integer>();
-        keys = new LinkedList<Integer>();
-        cap=capacity;
+        map = new HashMap<Integer, Integer>();
+        list = new LinkedList<Integer>();
+        kk = capacity;
     }
     
     public int get(int key) {
-        if (lruCache.containsKey(key)) {
-            keys.remove(keys.indexOf(key));
-            keys.add(key);
-            return lruCache.get(key);
+        if (map.containsKey(key)) {
+            list.remove(list.indexOf(key));
+            list.add(key);
+            return map.get(key);
         }
         else return -1;
     }
     
     public void set(int key, int value) {
-        if (lruCache.containsKey(key)){
-            keys.remove(keys.indexOf(key));
+        if (map.containsKey(key)){
+            list.remove(list.indexOf(key));
         }
-        keys.add(key);
-        lruCache.put(key,value); 
-        if (keys.size()>cap){
-            lruCache.remove(keys.get(0));
-            keys.remove(0);
+        list.add(key);
+        map.put(key,value); 
+        if (list.size()>kk){
+            map.remove(list.get(0));
+            list.remove(0);
         }
         
     }
