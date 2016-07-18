@@ -1,36 +1,24 @@
 public class Solution {
+    private List<String> res = new ArrayList<String>();
     public List<String> restoreIpAddresses(String s) {
-        List<String> res = new ArrayList<String>();
-        helper(s, res, "", 4, 0);
+        helper(s,"",4,0);
         return res;
     }
-    public void helper(String s, List<String> res, String path, int n, int ind){
-        if (n==0 && ind == s.length()) {
-            res.add(path.substring(0,path.length()-1));
+    public void helper(String s, String path, int remain, int ind){
+        if (remain==0 && ind == s.length()){
+            res.add(new String(path.substring(0,path.length()-1)));
             return;
         }
-        if (ind == s.length()) return;
-        if (s.length()-ind>3*n || s.length()-ind<n) return; 
-        String first="",second="",third="";
-        first = s.substring(ind,ind+1);
-        if (ind<s.length()-1) second = s.substring(ind,ind+2);
-        if (ind<s.length()-2) third = s.substring(ind,ind+3);
-        path=path+first+'.';
-        helper(s, res,path, n-1, ind+1);
-        path=path.substring(0,path.length()-2);
-        
-        if (!second.equals("") && second.charAt(0)!='0') {
-            path=path+second+'.';
-            helper(s, res,path, n-1, ind+2);
-            path=path.substring(0,path.length()-3);
+        else if (remain == 0 || ind == s.length()) return;
+        String one = s.substring(ind,ind+1);
+        helper(s,path+one+".",remain-1, ind+1);
+        if (ind+2<=s.length() && s.charAt(ind)!='0'){
+            String two = s.substring(ind,ind+2);
+            helper(s,path+two+".",remain-1, ind+2);
         }
-        
-        if (!third.equals("") && third.charAt(0)!='0') {
-            if (Integer.parseInt(third)<=255){
-                path=path+third+'.';
-                helper(s, res,path, n-1, ind+3);
-                path=path.substring(0,path.length()-4);
-            }
+        if (ind+3<=s.length() && s.charAt(ind)!='0'){
+            String three = s.substring(ind,ind+3);
+            if (Integer.parseInt(three)<=255) helper(s,path+three+".",remain-1, ind+3);
         }
     }
 }
