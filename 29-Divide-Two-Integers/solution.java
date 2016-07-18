@@ -1,24 +1,24 @@
 public class Solution {
     public int divide(int dividend, int divisor) {
-        if (divisor==0) return Integer.MAX_VALUE;
-        if (dividend==0) return 0;
-        long ldivisor = divisor;
-        long ldividend = dividend;
-        int sign = 1;
-        if ((ldividend>0 && ldivisor<0) || (ldivisor<0 && ldividend>0)) sign = -1;
-        //if (divisor == Integer.MIN_VALUE) return 0;
-        ldividend = Math.abs(ldividend);
-        ldivisor = Math.abs(ldivisor);
-        if (dividend<divisor) return 0;
-        if (dividend==divisor) return 1;
-        int res=1;
-        int newdiv = divisor;
-        while (dividend-newdiv>=newdiv){
-            res+=res;
-            newdiv+=newdiv;
+        boolean sign = (dividend > 0) ^ (divisor<0);
+        long a = Math.abs((long)dividend);
+        long b = Math.abs((long)divisor);
+        if (b==0) {
+            return dividend>=0? Integer.MAX_VALUE : Integer.MIN_VALUE;
         }
-        if (sign == 1) return res+divide(dividend-newdiv,divisor);
-        else return -res-divide(dividend-newdiv,divisor);
+        long res = ldiv(a,b);
+        if (res>Integer.MAX_VALUE) return sign? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        else return sign? (int) res : (int) -res;
         
+    }
+    public long ldiv (long a, long b){
+        if (a<b) return 0;
+       long sum = b;
+        long mult = 1;
+        while (sum+sum<=a){
+            sum+=sum;
+            mult+=mult;
+        }
+        return mult+ldiv(a-sum,b);
     }
 }
