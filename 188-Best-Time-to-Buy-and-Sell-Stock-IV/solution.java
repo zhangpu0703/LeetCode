@@ -14,7 +14,7 @@ public class Solution {
         int[][] res = new int[k+1][n];
         
         for (int i=1; i<=k; i++){
-            int localmax = res[i-1][0]-prices[0];
+            int localmax = -prices[0];
             for (int j = 1; j<n; j++){
                 res[i][j]=Math.max(res[i][j-1],localmax+prices[j]);
                 localmax = Math.max(localmax,res[i-1][j]-prices[j]);            
