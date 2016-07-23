@@ -8,7 +8,7 @@
  * }
  */
 public class Solution {
-    Comparator<Interval> IntervalCompare = new Comparator<Interval>(){
+    private Comparator<Interval> IntervalCompare = new Comparator<Interval>(){
         public int compare(Interval a, Interval b){
             return a.start-b.start;
         }
