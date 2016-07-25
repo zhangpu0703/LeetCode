@@ -14,17 +14,11 @@ public class Solution {
         int pivot = end;
         int i = start, j = end;
         while (i<j){
-            while (i<j && nums[i]<nums[pivot]) i++;
-            while (i<j && nums[j]>nums[pivot]) j--;
-            if (i<j){
-                int temp = nums[i];
-                nums[i]=nums[j];
-                nums[j]=temp;
-            }
+            while (i<j && nums[i]<=nums[pivot]) i++;
+            while (i<j && nums[j]>=nums[pivot]) j--;
+            if (i<j) swap(nums,i,j);
         }
-        int cur = nums[pivot];
-        nums[pivot]=nums[j];
-        nums[j]=cur;
+        swap(nums,j,pivot);
         return j;
     }
     public void swap(int[] nums, int a, int b){
