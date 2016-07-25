@@ -8,41 +8,36 @@
  */
 public class Solution {
     public ListNode sortList(ListNode head) {
-        if (head==null || head.next == null) return head;
-        ListNode slow = head;
-        ListNode fast = head;
-        ListNode first = null;
-        while (fast!=null && fast.next!=null){
+        if (head == null || head.next == null) return head;
+        ListNode slow = head, fast = head, prev = null;
+        while (fast!=null && fast.next != null){
             fast = fast.next.next;
-            first = slow;
-            slow=slow.next;
+            prev = slow;
+            slow = slow.next;
         }
-        first.next = null;
-        ListNode l1 = sortList(head);
-        ListNode l2 = sortList(slow);
-        return merge(l1,l2);
+        prev.next = null;
+        ListNode left = sortList(head), right = sortList(slow);
+        return merge(left,right);
     }
-    public ListNode merge(ListNode l1, ListNode l2){
+    public ListNode merge(ListNode a, ListNode b){
         ListNode dummy = new ListNode(0);
         ListNode cur = dummy;
-        while (l1 != null || l2 != null){
-            if (l1 == null){
-                cur.next=new ListNode(l2.val);
-                l2 = l2.next;
+        while (a!=null || b!=null){
+            if (a==null){
+                cur.next = new ListNode(b.val);
+                b=b.next;
             }
-            else if (l2 == null){
-                cur.next=new ListNode(l1.val);
-                l1 = l1.next;
+            else if (b==null){
+                cur.next = new ListNode(a.val);
+                a=a.next;
+            }
+            else if (a.val<b.val){
+                cur.next = new ListNode(a.val);
+                a=a.next;
             }
             else{
-                if (l1.val<l2.val){
-                    cur.next=new ListNode(l1.val);
-                    l1 = l1.next;
-                }
-                else{
-                    cur.next=new ListNode(l2.val);
-                    l2 = l2.next;
-                }
+                cur.next = new ListNode(b.val);
+                b=b.next; 
             }
             cur = cur.next;
         }
