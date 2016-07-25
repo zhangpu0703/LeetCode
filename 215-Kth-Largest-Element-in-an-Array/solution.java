@@ -3,7 +3,7 @@ public class Solution {
         k = nums.length-k;
         int start = 0, end = nums.length-1;
         while (start<end){
-            int ind = partition(nums,0,nums.length-1);
+            int ind = partition(nums,start,end);
             if (ind == k) return nums[ind];
             else if (ind<k) start = ind+1;
             else end = ind-1;
