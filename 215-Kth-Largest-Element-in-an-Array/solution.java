@@ -16,7 +16,7 @@ public class Solution {
         while (i<j){
             while (i<j && nums[i]<nums[pivot]) i++;
             while (i<j && nums[j]>nums[pivot]) j--;
-            swap(nums,i,j);
+            if (i<j) swap(nums,i,j);
         }
         swap(nums,j,pivot);
         return j;
