@@ -4,10 +4,10 @@ public class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         Arrays.sort(nums);
         used=new boolean[nums.length];
-        helper(nums, new ArrayList<Integer>(), 0);
+        helper(nums, new ArrayList<Integer>());
         return res;
     }
-    public void helper(int[] nums, List<Integer> path, int start){
+    public void helper(int[] nums, List<Integer> path){
         if (path.size()==nums.length){
             res.add(new ArrayList(path));
             return;
@@ -17,7 +17,7 @@ public class Solution {
             if (i>0 && nums[i] == nums[i-1] && !used[i-1]) continue;
             path.add(nums[i]);
             used[i]=true;
-            helper(nums, path,start+1);
+            helper(nums, path);
             path.remove(path.size()-1);
             used[i]=false;
         }
