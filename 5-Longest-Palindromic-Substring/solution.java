@@ -1,18 +1,20 @@
 public class Solution {
     public String longestPalindrome(String s) {
-        if (s.length()==0) return "";
+        int len = 0;
         String res = "";
+        int left = 0;
+        int right = 0;
         for (int i=0; i<s.length(); i++){
-            int left = i, right = i;
-            while (right<s.length()-1 && s.charAt(right)==s.charAt(right+1)) right++;
-            while (left>0 && right<s.length()-1){
-                if (s.charAt(left-1)==s.charAt(right+1)){
-                    left--;
-                    right++;
-                }
+            left = i;
+            right = i;
+            while (right<s.length()-1 && s.charAt(right+1) == s.charAt(right)) right++;
+            while (left>0 && right<s.length()-1 && s.charAt(left-1)==s.charAt(right+1)){
+                left--;
+                right++;
             }
-            if (res.length()<right-left+1){
+            if (len < right - left+1){
                 res = s.substring(left,right+1);
+                len = right - left +1 ;
             }
         }
         return res;
