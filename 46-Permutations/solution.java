@@ -1,23 +1,22 @@
 public class Solution {
     private List<List<Integer>> res = new ArrayList<List<Integer>>();
     public List<List<Integer>> permute(int[] nums) {
-        boolean[] used = new boolean[nums.length];
-        helper(nums,used,new ArrayList<Integer>());
+        boolean[] used = new boolean[nums.length]; 
+        helper(nums, new ArrayList<Integer>(),0, used);
         return res;
     }
-    public void helper(int[] nums, boolean[] used, List<Integer> path){
+    public void helper(int[] nums, List<Integer> path, int start, boolean[] used){
         if (path.size()==nums.length){
             res.add(new ArrayList(path));
             return;
         }
         for (int i=0; i<nums.length; i++){
-            if (!used[i]){
-                path.add(nums[i]);
-                used[i]=true;
-                helper(nums,used,path);
-                used[i]=false;
-                path.remove(path.size()-1);
-            }
+            if (used[i]) continue;
+            path.add(nums[i]);
+            used[i]=true;
+            helper(nums,path,start+1,used);
+            used[i]=false;
+            path.remove(path.size()-1);
         }
     }
 }
