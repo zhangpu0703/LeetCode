@@ -6,7 +6,7 @@ public class Solution {
     }
     public void helper(String s, int n, int start, String path){
         if (n==0 && start == s.length()){
-            res.add(new String(path.substring(0,path.length()-1)));
+            res.add(path.substring(0,path.length()-1));
             return;
         }
         if (n==0 || start == s.length()) return;
