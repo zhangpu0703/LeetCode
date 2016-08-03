@@ -25,22 +25,25 @@ public class NumArray {
         else if (start<=mid && mid<=end) return query(node.left,start,mid)+query(node.right,mid+1,end);
         else return query(node.right,start,end);
     }
-    public SegmentTreeNode build (int start, int end){
-        if (start>end) return null;
-        SegmentTreeNode node = new SegmentTreeNode(start,end,0);
-        if (start<end){
-            int mid = start+(end-start)/2;
-            node.left=build(start,mid);
-            node.right = build(mid+1,end);
+    public SegmentTreeNode build (int[] nums, int start, int end){
+        if (start > end) {
+            return null;
+        } else {
+            SegmentTreeNode ret = new SegmentTreeNode(start, end,0);
+            if (start == end) {
+                ret.sum = nums[start];
+            } else {
+                int mid = start  + (end - start) / 2;             
+                ret.left = build(nums, start, mid);
+                ret.right = build(nums, mid + 1, end);
+                ret.sum = ret.left.sum + ret.right.sum;
+            }         
+            return ret;
         }
-        return node;
     }
     private SegmentTreeNode root;
     public NumArray(int[] nums) {
-        root = build(0,nums.length-1);
-        for (int i=0; i<nums.length; i++){
-            modify(root,i,nums[i]);
-        }
+        root = build(nums,0,nums.length-1);
     }
 
     void update(int i, int val) {
