@@ -14,7 +14,6 @@ public class NumArray {
             return;
         }
         int mid = node.start+(node.end-node.start)/2;
-        System.out.println(mid);
         if (mid>=ind) modify(node.left,ind,val);
         else modify(node.right,ind,val);
         node.sum=node.left.sum+node.right.sum;
