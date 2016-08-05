@@ -8,29 +8,28 @@
  */
 public class Solution {
     public boolean isPalindrome(ListNode head) {
-        if (head == null) return true;
-        ListNode p1 = head;
-        ListNode p2 = head;
-        ListNode p3 = p1.next;
-        ListNode pre = p1;
-        while (p2.next != null && p2.next.next != null){
-            p2=p2.next.next;
-            pre = p1;
-            p1=p3;
-            p3=p1.next;
-            p1.next=pre;
+        ListNode fast = head, slow = head;
+        while (fast!=null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
         }
-        
-        if (p2.next == null){
-            p1=p1.next;
-        }
-        
-        while (p1 != null && p3 != null){
-            if (p1.val!=p3.val) return false;
-            p1=p1.next;
-            p3=p3.next;
+        if (fast!=null) slow = slow.next;
+        slow = reverse(slow);
+        while (slow != null){
+            if (head.val != slow.val) return false;
+            head=head.next;
+            slow = slow.next;
         }
         return true;
-        
+    }
+    public ListNode reverse(ListNode head){
+        ListNode prev = null, cur = head;
+        while (cur != null){
+            ListNode temp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = temp;
+        }
+        return prev;
     }
 }
