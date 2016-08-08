@@ -19,7 +19,7 @@ public class Solution {
             if (i<j) swap(nums,i,j);
         }
         swap(nums,j,pivot);
-        return j;
+        return i;
     }
     public void swap(int[] nums, int a, int b){
         int temp = nums[a];
