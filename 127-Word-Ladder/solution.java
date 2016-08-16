@@ -11,7 +11,6 @@ public class Solution {
             res++;
             for (int i=0; i<size; i++){
                 String cur = queue.poll();
-                
                 List<String> ladders = getLadders(cur,wordList);
                 for (String ladder : ladders) {
                     if (ladder.equals(endWord)) return res;
