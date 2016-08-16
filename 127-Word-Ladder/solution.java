@@ -1,40 +1,42 @@
 public class Solution {
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-        Queue<String> queue = new LinkedList<String>();
-        wordList.add(beginWord);
         wordList.add(endWord);
-        HashSet<String> used = new HashSet<>();
+        Queue<String> queue = new LinkedList<String>();
+        HashSet<String> visited = new HashSet<String>();
         queue.offer(beginWord);
-        used.add(beginWord);
+        visited.add(beginWord);
         int res = 1;
         while (!queue.isEmpty()){
-            res++;
             int size = queue.size();
+            res++;
             for (int i=0; i<size; i++){
                 String cur = queue.poll();
-                List<String> next = nextWords(cur,wordList);
-                for(String nn : next){
-                    if (nn.equals(endWord)) return res;
-                    if (used.contains(nn)) continue;
-                    used.add(nn);
-                    queue.offer(nn);
+                
+                List<String> ladders = getLadders(cur,wordList);
+                for (String ladder : ladders) {
+                    if (ladder.equals(endWord)) return res;
+                    if (visited.contains(ladder)) continue;
+                    visited.add(ladder);
+                    queue.offer(ladder);
                 }
             }
+            
         }
         return 0;
     }
-    public List<String> nextWords(String word, Set<String> wordList){
-        List<String> next = new ArrayList<String>();
-        char[] wordArray = word.toCharArray();
-        for (int i = 0; i<wordArray.length; i++){
-            for (char cc = 'a'; cc<='z'; cc++){
-                char temp = wordArray[i];
-                wordArray[i]=cc;
-                String cur = String.valueOf(wordArray);
-                if (!cur.equals(word) && wordList.contains(cur)) next.add(cur);
-                wordArray[i]=temp;
+    public List<String> getLadders (String word, Set<String> wordList){
+        char[] c = word.toCharArray();
+        List<String> res = new ArrayList<String>();
+        for (int i=0; i<c.length; i++){
+            char cur = c[i];
+            for (char temp = 'a'; temp<='z'; temp++){
+                if (temp==cur) continue;
+                c[i]=temp;
+                String ladder = String.valueOf(c);
+                if (wordList.contains(ladder)) res.add(ladder); 
             }
+            c[i]=cur;
         }
-        return next;
+        return res;
     }
 }
