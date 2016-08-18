@@ -1,22 +1,20 @@
 public class Solution {
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        helper(res,candidates, target, new ArrayList<Integer>(),0);
+        helper(candidates,target,0,new ArrayList<Integer>());
         return res;
     }
-    public void helper(List<List<Integer>> res, int[] candidates, int target, List<Integer> path, int start){
-        if (target == 0) {
-            res.add(new ArrayList<Integer>(path));
+    public void helper(int[] candidates, int target, int ind, List<Integer> path){
+        if (target == 0){
+            res.add(new ArrayList(path));
             return;
         }
         if (target<0) return;
-        for (int i=start; i<candidates.length; i++){
-            while (i<candidates.length-1 && candidates[i]==candidates[i+1]) i++;
+        for (int i=ind; i<candidates.length; i++){
             path.add(candidates[i]);
-            helper(res,candidates, target-candidates[i], path, i);
+            helper(candidates,target-candidates[i],i,path);
             path.remove(path.size()-1);
         }
-        return;
     }
 }
