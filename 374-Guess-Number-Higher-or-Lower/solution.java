@@ -10,7 +10,7 @@ public class Solution extends GuessGame {
             int mid = start+(end-start)/2;
             int cur = guess(mid);
             if (cur==0) return mid;
-            else if (cur == 1) start = mid+1;
+            else if (cur==1) start = mid+1;
             else end = mid;
         }
         return start;
