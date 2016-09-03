@@ -1,24 +1,26 @@
 public class Solution {
-    class Element{
-        int val, x, y;
-        public Element(int val, int x, int y){
+    class Pair{
+        int x, y, val;
+        public Pair(int x, int y, int val){
+            this.x=x;
+            this.y=y;
             this.val = val;
-            this.x = x;
-            this.y = y;
         }
     }
-    private Comparator<Element> comp = new Comparator<Element>(){
-        public int compare(Element a, Element b){
-            return a.val - b.val;
-        }
+    private Comparator<Pair> pairComp = new Comparator<Pair>(){
+      public int compare (Pair a, Pair b){
+          return a.val-b.val;
+      }  
     };
     public int kthSmallest(int[][] matrix, int k) {
-        PriorityQueue<Element> queue = new PriorityQueue<Element>(k,comp);
-        for (int j=0; j<matrix[0].length; j++) queue.offer(new Element(matrix[0][j],0,j));
-        for (int i=0; i<k-1; i++){
-            Element cur = queue.poll();
-            if (cur.x<matrix.length-1) queue.offer(new Element(matrix[cur.x+1][cur.y],cur.x+1,cur.y));
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>(k,pairComp);
+        for (int i=0; i<Math.min(matrix.length,k); i++){
+            pq.offer(new Pair(i,0,matrix[i][0]));
         }
-        return queue.peek().val;
+        for (int i=0; i<k-1; i++){
+            Pair cur = pq.poll();
+            if (cur.y<matrix[0].length-1) pq.offer(new Pair(cur.x,cur.y+1,matrix[cur.x][cur.y+1]));
+        }
+        return pq.peek().val;
     }
 }
