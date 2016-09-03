@@ -19,7 +19,7 @@ public class RandomizedCollection {
             return false;
         }
         else{
-            Set<Integer> indexes = new LinkedHashSet<Integer>();
+            Set<Integer> indexes = new HashSet<Integer>();
             indexes.add(list.size());
             map.put(val,indexes);
             list.add(val);
