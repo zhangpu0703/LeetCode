@@ -1,19 +1,17 @@
 public class Solution {
     public boolean wordPattern(String pattern, String str) {
-        String[] strs = str.split(" ");
-        HashMap<String,Character> map = new HashMap<String,Character>();
-        Set<Character> set = new HashSet<>();
-        if (strs.length != pattern.length()) return false;
-        for (int i=0; i<strs.length; i++){
-            String s = strs[i];
-            Character cur = pattern.charAt(i);
-            if (map.containsKey(s)){
-                if (map.get(s)!=cur) return false;
+        String[] words = str.split(" ");
+        if (words.length != pattern.length()) return false;
+        HashSet<Character> used = new HashSet<Character>();
+        HashMap<String,Character> sTop = new HashMap<String,Character>();
+        for (int i=0; i<words.length; i++){
+            if (!sTop.containsKey(words[i])){
+                if (used.contains(pattern.charAt(i))) return false;
+                sTop.put(words[i],pattern.charAt(i));
+                used.add(pattern.charAt(i));
             }
-            else if (set.contains(cur)) return false;
-            else {
-                map.put(s,cur);
-                set.add(cur);
+            else{
+                if (sTop.get(words[i])!=pattern.charAt(i)) return false;
             }
         }
         return true;
