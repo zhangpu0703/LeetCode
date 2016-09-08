@@ -1,38 +1,35 @@
-public class Solution {
-    class node{
-        int num, freq;
-        public node(int num, int freq){
-            this.num=num;
-            this.freq = freq;
-        }
+class Pair{
+    int val, freq;
+    public Pair(int val, int freq){
+        this.val = val;
+        this.freq = freq;
     }
-    private Comparator<node> nodeComp = new Comparator<node>(){
-        public int compare(node a, node b){
+}
+public class Solution {
+    private Comparator<Pair> pairComp = new Comparator<Pair>(){
+        public int compare (Pair a, Pair b){
             return a.freq-b.freq;
         }
     };
     public List<Integer> topKFrequent(int[] nums, int k) {
-        PriorityQueue<node> queue = new PriorityQueue<node>(k,nodeComp);
-        HashMap<Integer,Integer> map = new HashMap<>();
-        for (int i = 0; i<nums.length; i++){
-            if (map.containsKey(nums[i])) map.put(nums[i],map.get(nums[i])+1);
-            else map.put(nums[i],1);
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for (int num : nums){
+            if (map.containsKey(num)) map.put(num,map.get(num)+1);
+            else map.put(num,1);
         }
-        for (int key : map.keySet()){
-            node cur = new node(key,map.get(key));
-            if (queue.size()<k) queue.offer(cur);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>(k,pairComp);
+        for (int num : map.keySet()){
+            if (pq.size()<k) pq.offer(new Pair(num,map.get(num)));
             else{
-                node temp = queue.peek();
-                if (temp.freq<=cur.freq){
-                    queue.poll();
-                    queue.offer(cur);
+                Pair cur = pq.peek();
+                if (map.get(num)>cur.freq){
+                    pq.poll();
+                    pq.offer(new Pair(num,map.get(num)));
                 }
             }
         }
         List<Integer> res = new ArrayList<Integer>();
-        while (!queue.isEmpty()){
-            res.add(queue.poll().num);
-        }
+        while (!pq.isEmpty()) res.add(pq.poll().val);
         return res;
     }
 }
