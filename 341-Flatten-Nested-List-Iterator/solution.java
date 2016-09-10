@@ -16,18 +16,25 @@
  * }
  */
 public class NestedIterator implements Iterator<Integer> {
-    private List<Integer> flat;
+    private List<Integer> list;
     private Iterator<Integer> it;
+    private Stack<NestedInteger> stack;
     public NestedIterator(List<NestedInteger> nestedList) {
-        flat = new ArrayList<Integer>();
-        for (NestedInteger cur : nestedList){
-            if (cur.isInteger()) flat.add(cur.getInteger());
-            else{
-                NestedIterator i = new NestedIterator(cur.getList());
-                flat.addAll(i.flat);
-            }
+        stack = new Stack<NestedInteger>();
+        list = new ArrayList<Integer>();
+        Collections.reverse(nestedList);
+        for (int i=0; i<nestedList.size(); i++){
+            stack.push(nestedList.get(i));
         }
-        it = flat.iterator();
+        
+        while (!stack.isEmpty()){
+            NestedInteger cur = stack.pop();
+            if (cur.isInteger()) list.add(cur.getInteger());
+            List<NestedInteger> curList = cur.getList();
+            Collections.reverse(curList);
+            for (NestedInteger n : curList) stack.push(n);
+        }
+        it = list.iterator();
     }
 
     @Override
