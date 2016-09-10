@@ -5,8 +5,9 @@ public class Solution {
             map[magazine.charAt(i)]++;
         }
         for (int j = 0; j<ransomNote.length(); j++){
-            if (map[ransomNote.charAt(j)]<=0) return false;
-            map[ransomNote.charAt(j)]--;
+            char cur = ransomNote.charAt(j);
+            if (map[cur]==0) return false;
+            map[cur]--;
         }
         return true;
     }
