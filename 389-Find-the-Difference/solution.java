@@ -6,9 +6,13 @@ public class Solution {
             counts[t.charAt(i)-'a']++;
         }
         counts[t.charAt(s.length())-'a']++;
-        for (int i=0; i<26; i++){
-            if (counts[i]>0) return (char) ('a'+i);
+        char res = 'a';
+        for (char c = 'a'; c<='z'; c++){
+            if (counts[c-'a']==1) {
+                res = c;
+                break;
+            }
         }
-        return '0';
+        return res;
     }
 }
