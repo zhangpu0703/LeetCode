@@ -6,7 +6,7 @@ public class Solution {
             int pivot = quickselect(nums,start,end);
             if (pivot==k) return nums[pivot];
             else if (pivot<k) start = pivot+1;
-            else end = pivot;
+            else end = pivot-1;
         }
         return nums[start];
     }
