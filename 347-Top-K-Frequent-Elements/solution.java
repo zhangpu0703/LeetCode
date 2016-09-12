@@ -6,8 +6,8 @@ class Pair{
     }
 }
 public class Solution {
-    private Comparator<Pair> pairComp = new Comparator<Pair>(){
-        public int compare (Pair a, Pair b){
+    private Comparator<Pair> PairComp = new Comparator<Pair>(){
+        public int compare(Pair a, Pair b){
             return a.freq-b.freq;
         }
     };
@@ -17,19 +17,23 @@ public class Solution {
             if (map.containsKey(num)) map.put(num,map.get(num)+1);
             else map.put(num,1);
         }
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>(k,pairComp);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>(k,PairComp);
         for (int num : map.keySet()){
-            if (pq.size()<k) pq.offer(new Pair(num,map.get(num)));
+            Pair cur = new Pair(num,map.get(num));
+            if (pq.size()<k) pq.offer(cur);
             else{
-                Pair cur = pq.peek();
-                if (map.get(num)>cur.freq){
+                Pair temp = pq.peek();
+                if (cur.freq>temp.freq){
                     pq.poll();
-                    pq.offer(new Pair(num,map.get(num)));
+                    pq.offer(cur);
                 }
             }
         }
         List<Integer> res = new ArrayList<Integer>();
-        while (!pq.isEmpty()) res.add(pq.poll().val);
+        while (!pq.isEmpty()){
+            Pair cur = pq.poll();
+            res.add(cur.val);
+        }
         return res;
     }
 }
