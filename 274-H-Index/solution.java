@@ -1,18 +1,16 @@
 public class Solution {
     public int hIndex(int[] citations) {
         int n = citations.length;
-        if (n==0) return 0;
-        int[] res = new int[n+1];
-        for (int cite : citations){
-            if (cite>=n) res[n]++;
-            else res[cite]++;
+        int[] counts = new int[n+1];
+        for (int i=0; i<n; i++){
+            int cur = citations[i];
+            if (cur>n) counts[n]++;
+            else counts[cur]++;
         }
-        int hInd = n;
         int sum = 0;
-        while (hInd>=0){
-            sum+=res[hInd];
-            if (sum>=hInd) return hInd;
-            hInd--;
+        for (int h=n; h>=0; h--){
+            sum+=counts[h];
+            if (sum>=h) return h;
         }
         return 0;
     }
