@@ -16,6 +16,7 @@ public class Solution {
         int len = 0;
         while(len<n){
             if (inorder[len]==val) break;
+            len++;
         }
         int[] leftPre = Arrays.copyOfRange(preorder,1,len+1);
         int[] rightPre = Arrays.copyOfRange(preorder,len+1,n);
