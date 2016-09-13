@@ -9,11 +9,14 @@
  */
 public class Solution {
     public boolean isValidBST(TreeNode root) {
-        return valid(root,Long.MAX_VALUE, Long.MIN_VALUE);
-    }
-    public boolean valid (TreeNode root, long max, long min){
         if (root == null) return true;
-        if (root.val>=max || root.val <= min) return false;
-        else return valid(root.left,(long)root.val,min) && valid(root.right,max,(long)root.val);
+        long max = Long.MAX_VALUE, min = Long.MIN_VALUE;
+        return valid(root,max,min);
+    }
+    
+    public boolean valid(TreeNode root, Long max, Long min){
+        if (root == null) return true;
+        if (root.val<=min || root.val>=max) return false;
+        return valid(root.left,(long)root.val,min) && valid(root.right, max,(long)root.val);
     }
 }
