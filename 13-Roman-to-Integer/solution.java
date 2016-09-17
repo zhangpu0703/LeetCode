@@ -8,13 +8,10 @@ public class Solution {
         map.put('C',100);
         map.put('D',500);
         map.put('M',1000);
-        if (s.length()==0) return 0;
         int res = map.get(s.charAt(s.length()-1));
         for (int i=s.length()-2; i>=0; i--){
-            int cur = map.get(s.charAt(i));
-            int last = map.get(s.charAt(i+1));
-            if (cur<last) res-=cur;
-            else res+=cur;
+            if (map.get(s.charAt(i+1))>map.get(s.charAt(i))) res-=map.get(s.charAt(i));
+            else res+=map.get(s.charAt(i)); 
         }
         return res;
     }
