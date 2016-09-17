@@ -1,12 +1,12 @@
 public class Solution {
     public String longestPalindrome(String s) {
-        if (s==null || s.length()==0) return "";
-        int len = 1;
-        String res = s.substring(0,1);
+        if (s == null || s.length() == 0) return "";
+        int len = 0;
+        String res = "";
         for (int i=0; i<s.length(); i++){
             int left = i, right = i;
-            while (right<s.length()-1 && s.charAt(right+1) == s.charAt(i)) right++;
-            while (left>0 && right<s.length()-1 && s.charAt(left-1)==s.charAt(right+1)){
+            while(right<s.length()-1 && s.charAt(right+1) == s.charAt(i)) right++;
+            while(left>0 && right<s.length()-1 && s.charAt(right+1) == s.charAt(left-1)) {
                 left--;
                 right++;
             }
@@ -16,5 +16,6 @@ public class Solution {
             }
         }
         return res;
+        
     }
 }
