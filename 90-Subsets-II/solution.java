@@ -1,19 +1,19 @@
 public class Solution {
+    private List<List<Integer>> res = new ArrayList<List<Integer>>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
         Arrays.sort(nums);
-        boolean[] used = new boolean[nums.length];
-        helper(res,new ArrayList<Integer>(), 0, nums, used);
+        boolean[] visited = new boolean[nums.length];
+        helper(new ArrayList<Integer>(), 0, nums, visited);
         return res;
     }
-    public void helper(List<List<Integer>> res, List<Integer> path, int start, int[] nums, boolean[] used){
+    public void helper(List<Integer> path, int start, int[] nums, boolean[] visited){
         res.add(new ArrayList<Integer>(path));
         for (int i=start; i<nums.length; i++){
-            if (i>0 && !used[i-1] && nums[i]==nums[i-1]) continue;
+            if (i>0 && !visited[i-1] && nums[i]==nums[i-1]) continue;
             path.add(nums[i]);
-            used[i]=true;
-            helper(res, path, i+1, nums, used);
-            used[i]=false;
+            visited[i]=true;
+            helper(path, i+1, nums, visited);
+            visited[i]=false;
             path.remove(path.size()-1);
         }
     }
