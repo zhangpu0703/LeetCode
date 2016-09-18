@@ -1,10 +1,10 @@
 class TrieNode {
     // Initialize your data structure here.
-    TrieNode[] childnode;
-    String item;
+    String data;
+    TrieNode[] children;
     public TrieNode() {
-        childnode = new TrieNode[26];
-        item="";
+        children = new TrieNode[26];
+        data = "";
     }
 }
 
@@ -13,41 +13,35 @@ public class Trie {
 
     public Trie() {
         root = new TrieNode();
-        
     }
 
     // Inserts a word into the trie.
     public void insert(String word) {
         TrieNode node = root;
-        for (int i=0; i<word.length(); i++){
-            char c = word.charAt(i);
-            if (node.childnode[c-'a']==null){
-                node.childnode[c-'a']=new TrieNode();
-            }
-            node=node.childnode[c-'a'];
+        for(int i=0; i<word.length(); i++){
+            if (node.children[word.charAt(i)-'a'] == null) node.children[word.charAt(i)-'a'] = new TrieNode();
+            node = node.children[word.charAt(i)-'a'];
         }
-        node.item = word;
+        node.data = word;
     }
 
     // Returns if the word is in the trie.
     public boolean search(String word) {
-        TrieNode node=root;
-        for(int i=0; i<word.length(); i++){
-            char c = word.charAt(i);
-            if (node.childnode[c-'a']==null) return false;
-            node=node.childnode[c-'a'];
+        TrieNode node = root;
+        for (int i = 0; i<word.length(); i++){
+            if (node.children[word.charAt(i)-'a']==null) return false;
+            else node = node.children[word.charAt(i)-'a'];
         }
-        return node.item.equals(word);
+        return word.equals(node.data);
     }
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
     public boolean startsWith(String prefix) {
-        TrieNode node=root;
-        for(int i=0; i<prefix.length(); i++){
-            char c = prefix.charAt(i);
-            if (node.childnode[c-'a']==null) return false;
-            node=node.childnode[c-'a'];
+        TrieNode node = root;
+        for (int i = 0; i<prefix.length(); i++){
+            if (node.children[prefix.charAt(i)-'a']==null) return false;
+            else node = node.children[prefix.charAt(i)-'a'];
         }
         return true;
     }
