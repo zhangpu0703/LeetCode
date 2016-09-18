@@ -22,12 +22,12 @@ public class LRUCache {
         add(cur);
     }
     private int size;
-    private int capacity;
+    private int cap;
     private HashMap<Integer,DNode> map;
     private DNode head, tail;
     
     public LRUCache(int capacity) {
-        this.capacity = capacity;
+        cap = capacity;
         head = new DNode();
         tail = new DNode();
         head.next = tail;
@@ -61,7 +61,7 @@ public class LRUCache {
             map.put(key,node);
             add(node);
             size++;
-            if (size>capacity){
+            if (size>cap){
                 DNode removed = head.next;
                 remove(removed);
                 map.remove(removed.key);
