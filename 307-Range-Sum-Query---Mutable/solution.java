@@ -25,7 +25,7 @@ public class NumArray {
     
     public void modify (SegmentTreeNode root, int i, int val){
         if (root == null) return;
-        if (root.start == root.end) {
+        if (root.start == i && root.end == i) {
             root.sum = val;
             return;
         }
