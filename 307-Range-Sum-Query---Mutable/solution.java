@@ -1,49 +1,52 @@
 public class NumArray {
     class SegmentTreeNode{
-        int start, end, sum;
+        int start, end;
+        int sum;
         SegmentTreeNode left, right;
         public SegmentTreeNode(int start, int end, int sum){
-            this.start=start;
-            this.end=end;
+            this.start = start;
+            this.end = end;
             this.sum = sum;
         }
     }
-    public void modify(SegmentTreeNode node, int ind, int val){
-        if (node.start == ind && node.end == ind){
-            node.sum=val;
+    
+    public SegmentTreeNode buildTree(int start, int end, int[] A){
+        if (start>end) return null;
+        SegmentTreeNode node = new SegmentTreeNode(start,end,0);
+        if (start == end) node.sum = A[start];
+        else{
+            int mid = start+(end-start)/2;
+            node.left = buildTree(start,mid,A);
+            node.right = buildTree(mid+1,end,A);
+            node.sum = node.left.sum + node.right.sum;
+        }
+        return node;
+    }
+    
+    public void modify (SegmentTreeNode root, int i, int val){
+        if (root == null) return;
+        if (root.start == root.end) {
+            root.sum = val;
             return;
         }
+        int mid = root.start+(root.end-root.start)/2;
+        if (mid>=i) modify(root.left,i,val);
+        else modify(root.right,i,val);
+        root.sum = root.left.sum+root.right.sum;
+    }
+    
+    public int query (SegmentTreeNode node, int i, int j){
+        if (node.start == node.end) return node.sum;
         int mid = node.start+(node.end-node.start)/2;
-        if (mid>=ind) modify(node.left,ind,val);
-        else modify(node.right,ind,val);
-        node.sum=node.left.sum+node.right.sum;
+        if (j<=mid) return query (node.left, i, j);
+        else if (i<=mid && j>mid) return query(node.left,i,mid)+query(node.right,mid+1,j);
+        else return query(node.right,i,j);
     }
-    public int query (SegmentTreeNode node, int start, int end){
-        if (node.start == start && node.end == end) return node.sum;
-        int mid = node.start+(node.end-node.start)/2;
-        if (end<=mid) return query(node.left,start,end);
-        else if (start<=mid && mid<=end) return query(node.left,start,mid)+query(node.right,mid+1,end);
-        else return query(node.right,start,end);
-    }
-    public SegmentTreeNode build (int[] nums, int start, int end){
-        if (start > end) {
-            return null;
-        } else {
-            SegmentTreeNode ret = new SegmentTreeNode(start, end,0);
-            if (start == end) {
-                ret.sum = nums[start];
-            } else {
-                int mid = start  + (end - start) / 2;             
-                ret.left = build(nums, start, mid);
-                ret.right = build(nums, mid + 1, end);
-                ret.sum = ret.left.sum + ret.right.sum;
-            }         
-            return ret;
-        }
-    }
-    private SegmentTreeNode root;
+    
+    SegmentTreeNode root;
+
     public NumArray(int[] nums) {
-        root = build(nums,0,nums.length-1);
+        root = buildTree(0,nums.length-1,nums);
     }
 
     void update(int i, int val) {
