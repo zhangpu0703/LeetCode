@@ -1,39 +1,36 @@
 public class Solution {
     public boolean validUtf8(int[] data) {
-        int n = data.length;
-        int cur = 0;
-        while (cur<n){
-            String s = binary(data[cur]%256);
-            //if (s.charAt(0) == '0') cur++;
-            int m = count(s);
-            if (m==1) return false;
-            for (int i=0; i<m-1; i++){
-                cur++;
-                if (cur>=n) return false;
-                String t = binary(data[cur]%256);
-                System.out.println(t);
-                if (!t.startsWith("10")) return false;
+        if (data == null || data.length == 0) return false;
+        int ind = 0;
+        while(ind < data.length){
+            String cur = toBinary(data[ind]);
+            int count = nOnes(cur);
+            if (count == 0){
+                ind++;
+                continue;
             }
-            cur++;
+            else if (count == 1 || ind+count > data.length) return false;
+            else{
+                ind++;
+                for (int i=0; i<count-1; i++){
+                    String s = toBinary(data[ind++]);
+                    if (!s.startsWith("10")) return false;
+                }
+            }
         }
         return true;
     }
-    public String binary(int num){
+    public String toBinary(int value){
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<8; i++){
-            sb.append(num%2);
-            num/=2;
+        while(sb.length()<8){
+            sb.append(value%2);
+            value/=2;
         }
-        //System.out.println(sb.reverse().toString());
         return sb.reverse().toString();
     }
-    public int count(String s){
-        if (s.startsWith("0")) return 0;
-        String one = "1";
-        for (int i=0; i<8; i++){
-            one=one+"1";
-            if (!s.startsWith(one)) return one.length()-1;
-        }
-        return 8;
+    public int nOnes(String s){
+        int i=0;
+        while(i<s.length() && s.charAt(i)=='1') i++;
+        return i;
     }
 }
