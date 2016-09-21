@@ -11,10 +11,8 @@ public class Solution {
             int size = queue.size();
             for (int i=0; i<size; i++){
                 String cur = queue.poll();
-                System.out.println(cur);
                 List<String> list = ladders(cur,wordList);
                 for (String s : list) {
-                    System.out.println(s);
                     if (s.equals(endWord)) return res;
                     if (visited.contains(s)) continue;
                     visited.add(s);
