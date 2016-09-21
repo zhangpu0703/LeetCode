@@ -1,35 +1,36 @@
 public class MinStack {
-    Stack<Integer> myStack;
-    Stack<Integer> curMin;
-    int min; 
-
+    Stack<Integer> stack1, stack2;
+    int min;
     /** initialize your data structure here. */
     public MinStack() {
-        min= Integer.MAX_VALUE;
-        myStack = new Stack<Integer>();
-        curMin = new Stack<Integer>();
+        stack1 = new Stack<Integer>();
+        stack2 = new Stack<Integer>();
+        min = Integer.MAX_VALUE;
     }
     
     public void push(int x) {
-        if (x<=min) min=x;
-        myStack.push(x);
-        curMin.push(min);
+        stack1.push(x);
+        min = Math.min(x,min);
+        stack2.push(min);
     }
     
     public void pop() {
-        int a = myStack.pop();
+        if (stack1.isEmpty()) return;
+        int pop = stack1.pop();
+        stack2.pop();
+        if (stack2.isEmpty()) min = Integer.MAX_VALUE;
+        else min = stack2.peek();
         
-        curMin.pop();
-        if (curMin.isEmpty()) min = Integer.MAX_VALUE;
-        if (a==min) min=curMin.peek();
+        
+        
     }
     
     public int top() {
-        return myStack.peek();
+        return stack1.peek();
     }
     
     public int getMin() {
-        return curMin.peek();
+        return stack2.peek();
     }
 }
 
