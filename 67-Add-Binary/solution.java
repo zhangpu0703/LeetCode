@@ -14,6 +14,6 @@ public class Solution {
             indB--;
         }
         if (carry==1) sb.append(1);
-        return sb.toString();
+        return sb.reverse().toString();
     }
 }
