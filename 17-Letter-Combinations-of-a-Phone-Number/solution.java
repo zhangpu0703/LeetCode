@@ -3,12 +3,11 @@ public class Solution {
         String[] map = new String[]{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         List<String> res = new ArrayList<String>();
         for (int i=0; i<digits.length(); i++){
-            String letters = map[digits.charAt(i)-'0'];
-            if (res.size()==0) res.add("");
-            for (int k=0; k<res.size(); k++){
-                for (int j=0; j<letters.length(); j++){
-                    String newString = res.get(k)+letters.charAt(j);
-                    res.add(newString);
+            if (res.size()==0)  res.add("");
+            String next = map[digits.charAt(i)-'0'];
+            for (int j=0; j<res.size(); j++){
+                for (int k=0; k<next.length(); k++){
+                    res.add(res.get(j)+next.charAt(k));
                 }
             }
         }
