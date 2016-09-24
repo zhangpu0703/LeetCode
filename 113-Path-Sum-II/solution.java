@@ -10,18 +10,20 @@
 public class Solution {
     private List<List<Integer>> res = new ArrayList<List<Integer>>();
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        helper(root, sum, new ArrayList<Integer>());
+        helper(root,sum,new ArrayList<Integer>());
         return res;
     }
-    public void helper(TreeNode root, int sum,  List<Integer> path){
+    public void helper(TreeNode root, int sum, List<Integer> path){
         if (root == null) return;
-        path.add(root.val);
-        if (root.left == null && root.right == null && root.val == sum){
-            res.add(new ArrayList(path));
+        if (root.left == null && root.right == null){
+            if (root.val == sum){
+                path.add(root.val);
+                res.add(new ArrayList<Integer>(path));
+            }
             return;
         }
-        helper(root.left, sum-root.val, new ArrayList(path));
-        helper(root.right, sum-root.val, new ArrayList(path));
-        
+        path.add(root.val);
+        helper(root.left,sum-root.val,new ArrayList<Integer>(path));
+        helper(root.right,sum-root.val,new ArrayList<Integer>(path));
     }
 }
