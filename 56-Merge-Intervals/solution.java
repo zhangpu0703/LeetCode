@@ -8,29 +8,26 @@
  * }
  */
 public class Solution {
-    private Comparator<Interval> IntervalCompare = new Comparator<Interval>(){
-        public int compare(Interval a, Interval b){
-            return a.start-b.start;
-        }
+    private Comparator<Interval> intervalComp = new Comparator<Interval>(){
+        public int compare (Interval a, Interval b){
+            if (a.start == b.start) return a.end-b.end;
+            return a.start - b.start;
+        }   
     };
     public List<Interval> merge(List<Interval> intervals) {
-        Collections.sort(intervals, IntervalCompare);
-        List<Interval> res = new ArrayList<Interval>();
-        if (intervals.size()==0) return res;
+        if (intervals == null || intervals.size() == 0) return intervals;
+        Collections.sort(intervals,intervalComp);
         Interval cur = intervals.get(0);
+        List<Interval> res = new ArrayList<Interval>();
         for (int i=1; i<intervals.size(); i++){
-            int left = intervals.get(i).start;
-            int right = intervals.get(i).end;
-            if (left > cur.end) {
-                res.add(cur);
-                cur = intervals.get(i);
-            }
+            Interval temp = intervals.get(i);
+            if (temp.start<=cur.end) cur.end = Math.max(cur.end,temp.end);
             else{
-                cur.end = Math.max(cur.end,right);
+                res.add(cur);
+                cur = temp;
             }
         }
         res.add(cur);
         return res;
     }
-
 }
