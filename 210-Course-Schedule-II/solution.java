@@ -1,35 +1,29 @@
 public class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] counts = new int[numCourses];
         int[] res = new int[numCourses];
         int ind = 0;
-        int m = prerequisites.length;
-        int[] counts = new int[numCourses];
-        for (int i=0; i<m; i++){
+        for (int i=0; i<prerequisites.length; i++){
             counts[prerequisites[i][0]]++;
         }
-        
-        Queue<Integer> finished = new LinkedList<Integer>();
-        
+        Queue<Integer> queue = new LinkedList<Integer>();
         for (int i=0; i<numCourses; i++){
-            if (counts[i]==0){
-                finished.offer(i);
-                res[ind]=i;
-                ind++;
+            if (counts[i]==0) {
+                queue.offer(i);
+                res[ind++]=i;
             }
         }
-        
-        while (!finished.isEmpty()){
-            int cur = finished.poll();
-            for (int i=0; i<m; i++){
-                if (prerequisites[i][1]==cur){
-                    counts[prerequisites[i][0]]--;
-                    if (counts[prerequisites[i][0]]==0){
-                        finished.offer(prerequisites[i][0]);
-                        res[ind]=prerequisites[i][0];
-                        ind++;
+        while (!queue.isEmpty()){
+                int cur = queue.poll();
+                for (int j=0; j<prerequisites.length; j++){
+                    if (prerequisites[j][1]==cur){
+                        counts[prerequisites[j][0]]--;
+                        if (counts[prerequisites[j][0]] == 0){
+                            queue.offer(prerequisites[j][0]);
+                            res[ind++]=prerequisites[j][0];
+                        }
                     }
                 }
-            }
         }
         if (ind == numCourses) return res;
         else return new int[0];
