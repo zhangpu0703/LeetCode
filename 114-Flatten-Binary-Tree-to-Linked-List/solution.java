@@ -10,13 +10,12 @@
 public class Solution {
     public void flatten(TreeNode root) {
         if (root == null) return;
-        TreeNode left = root.left, right = root.right;
-        flatten(left);
-        root.right = left;
+        flatten(root.right);
+        flatten(root.left);
+        TreeNode temp = root.right;
+        root.right = root.left;
         root.left = null;
-        TreeNode cur = root;
-        while (cur.right != null) cur = cur.right;
-        flatten(right);
-        cur.right = right;
+        while(root.right != null) root = root.right;
+        root.right = temp;
     }
 }
