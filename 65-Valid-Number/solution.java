@@ -12,15 +12,19 @@ public class Solution {
             if (Character.isDigit(cur)){
                 numSeen = true;
             }
-            if (cur == '.'){
+            else if (cur == '.'){
                 if (dotSeen || eSeen) return false;
+                dotSeen = true;
             }
-            if (cur == 'e'){
+            else if (cur == 'e'){
                 if (eSeen || !numSeen) return false;
+                numSeen = false;
             }
-            if (cur == '+' || cur == '-'){
+            else if (cur == '+' || cur == '-'){
                 if (ind==0 || s.charAt(ind-1) != 'e') return false;
             }
+            else return false;
+            ind++;
         }
         return numSeen;
     }
