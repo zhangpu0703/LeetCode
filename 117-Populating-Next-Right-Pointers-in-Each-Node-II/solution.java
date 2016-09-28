@@ -9,27 +9,24 @@
 public class Solution {
     public void connect(TreeLinkNode root) {
         if (root == null) return;
-        TreeLinkNode prev = null;
-        TreeLinkNode head = null;
-        TreeLinkNode cur = root;
-        while (cur!=null){
-            while(cur!=null){
-                if (cur.left !=null){
-                    if (prev == null) head = cur.left;
-                    else prev.next = cur.left;
-                    prev = cur.left;
+        TreeLinkNode head = null, last = null;
+        while (root != null){
+            while (root!=null){
+                if (root.left != null){
+                    if (last == null) head = root.left;
+                    else last.next = root.left;
+                    last = root.left;
                 }
-                if (cur.right != null){
-                    if (prev == null) head=cur.right;
-                    else prev.next = cur.right;
-                    prev = cur.right;
+                if (root.right != null){
+                    if (last == null) head = root.right;
+                    else last.next = root.right;
+                    last = root.right;
                 }
-                cur = cur.next;
+                root = root.next;
             }
-            cur = head;
-            prev = null;
+            root = head;
             head = null;
+            last = null;
         }
-        
     }
 }
