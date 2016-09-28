@@ -3,7 +3,7 @@ public class Solution {
         List<String> res = new ArrayList<String>();
         for (int h = 0; h<12; h++){
             for (int m = 0; m<60; m++){
-                if (Integer.bitCount(h * 64 + m) == num){
+                if (Integer.bitCount(h) + Integer.bitCount(m) == num){
                     String hr = String.valueOf(h);
                     String min = "";
                     if (m<10) min = "0"+String.valueOf(m);
