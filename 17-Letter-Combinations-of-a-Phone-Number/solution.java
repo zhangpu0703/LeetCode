@@ -7,6 +7,7 @@ public class Solution {
             String next = map[digits.charAt(i)-'0'];
             for (int j=0; j<res.size(); j++){
                 for (int k=0; k<next.length(); k++){
+                    System.out.println(res.get(j));
                     res.add(res.get(j)+next.charAt(k));
                 }
             }
