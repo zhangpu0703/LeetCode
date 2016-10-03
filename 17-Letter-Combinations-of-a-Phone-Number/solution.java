@@ -1,19 +1,19 @@
 public class Solution {
     public List<String> letterCombinations(String digits) {
         String[] map = new String[]{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        List<String> res = new ArrayList<String>();
+        Queue<String> queue = new LinkedList<String>();
+        if (digits == null || digits.length() == 0) return new ArrayList<String>();
+        queue.offer("");
         for (int i=0; i<digits.length(); i++){
-            char[] cur = map[digits.charAt(i)-'0'].toCharArray();
-            if (res.size()==0) res.add("");
-            List<String> list = new ArrayList<String>();
-            for (int j=0; j<cur.length; j++){
-                
-                for (String s : res){
-                    list.add(s+cur[j]);
+            char[] letters = map[digits.charAt(i)-'0'].toCharArray();
+            int size = queue.size();
+            for (int j=0; j<size; j++){
+                String cur = queue.poll();
+                for (char c : letters){
+                    queue.offer(cur+c);
                 }
             }
-            res = new ArrayList<String>(list);
         }
-        return res;
+        return new ArrayList<String>(queue);
     }
 }
