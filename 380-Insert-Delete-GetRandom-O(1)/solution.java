@@ -22,9 +22,8 @@ public class RandomizedSet {
         if (!map.containsKey(val)) return false;
         int ind = map.get(val);
         if (ind<list.size()-1){
-            int last = list.get(list.size()-1);
-            list.set(ind,last);
-            map.put(last,ind);
+            list.set(ind,list.get(list.size()-1));
+            map.put(list.get(list.size()-1),ind);
         }
         list.remove(list.size()-1);
         map.remove(val);
