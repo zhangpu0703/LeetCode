@@ -1,12 +1,12 @@
 public class RandomizedSet {
-    private HashMap<Integer,Integer> map;
-    private Random rand; 
-    private List<Integer> list;
+    HashMap<Integer, Integer> map;
+    List<Integer> list;
+    Random rand;
     /** Initialize your data structure here. */
     public RandomizedSet() {
-        map = new HashMap<Integer,Integer>();
+        map = new HashMap<>();
+        list = new ArrayList<>();
         rand = new Random();
-        list = new ArrayList<Integer>();
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
