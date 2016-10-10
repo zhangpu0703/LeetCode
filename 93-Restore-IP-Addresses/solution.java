@@ -1,25 +1,27 @@
 public class Solution {
-    List<String> res = new ArrayList<>();
+    private List<String> res = new ArrayList<String>();
     public List<String> restoreIpAddresses(String s) {
-        helper(s,4,0,"");
+        recurse(s,"",4,0);
         return res;
     }
-    public void helper(String s, int n, int start, String path){
-        if (n==0 && start == s.length()){
-            res.add(path.substring(0,path.length()-1));
+    public void recurse(String s, String cur, int k, int ind){
+        if (k == 0 && ind == s.length()){
+            res.add(cur.substring(0,cur.length()-1));
             return;
         }
-        if (n==0 || start == s.length()) return;
-        String one, two, three;
-        one = s.substring(start,start+1);
-        helper(s,n-1,start+1,path+one+".");
-        if (start+2<=s.length() && s.charAt(start)!='0') {
-            two = s.substring(start,start+2);
-            helper(s,n-1,start+2,path+two+".");
+        else if (k == 0 || ind == s.length()) return;
+        int i = ind;
+        int num = Integer.parseInt(s.substring(i,i+1));
+        recurse(s,cur+num+'.',k-1,i+1);
+        if (s.charAt(i)!='0' && i+2<=s.length()){
+            num = Integer.parseInt(s.substring(i,i+2));
+            recurse(s,cur+num+'.',k-1,i+2);
         }
-        if (start+3<=s.length() && s.charAt(start)!='0') {
-            three = s.substring(start,start+3);
-            if (Integer.parseInt(three)<=255) helper(s,n-1,start+3,path+three+".");
+        if (s.charAt(i)!='0' && i+3<=s.length()){
+            num = Integer.parseInt(s.substring(i,i+3));
+            if (num<256){
+                recurse(s,cur+num+'.',k-1,i+3);
+            }
         }
     }
 }
