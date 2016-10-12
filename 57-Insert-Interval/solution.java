@@ -9,29 +9,27 @@
  */
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        List<Interval> out = new ArrayList<Interval>();
-        int n = intervals.size();
-        if (n==0) return out;
-        int left = newInterval.start;
-        int right = newInterval.end;
+        List<Interval> res = new ArrayList<Interval>();
+        Interval cur = newInterval;
+        boolean added = false;
         for (int i=0; i<intervals.size(); i++){
-            Interval cur = intervals.get(i);
-            if (left<cur.start) intervals.add(i,newInterval);
-        }
-        if (intervals.size()==n) intervals.add(newInterval);
-        Interval pp = intervals.get(0);
-        for (int i=0; i<intervals.size(); i++){
-            left = intervals.get(i).start;
-            right = intervals.get(i).end;
-            if (left > pp.end) {
-                out.add(pp);
-                pp = intervals.get(i);
+            int start = intervals.get(i).start, end = intervals.get(i).end;
+            if (added){
+                res.add(intervals.get(i));
+                continue;
             }
-            else{
-                pp.end = Math.max(pp.end,right);
+            if (cur.end<start) {
+                res.add(cur);
+                added = true;
+                res.add(intervals.get(i));
+            }
+            else if (cur.start>end) res.add(intervals.get(i));
+            else {
+                cur.start = Math.min(start,cur.start);
+                cur.end = Math.max(end,cur.end);
             }
         }
-        out.add(pp);
-        return out;
+        if (!added) res.add(cur);
+        return res;
     }
 }
